@@ -9,19 +9,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.apimartgalery.ui.screens.MarsViewModel
 import com.example.apimartgalery.ui.theme.ApiMartGaleryTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             ApiMartGaleryTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    val viewModel: MarsViewModel = viewModel()
+                    MarsScreen(
+                        viewModel = viewModel,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -30,18 +38,20 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun MarsScreen(
+    viewModel: MarsViewModel,
+    modifier: Modifier = Modifier
+) {
+    LaunchedEffect(Unit) {
+        viewModel.getMarsPhotos()
+    }
+
+    val photos = viewModel.marsPhotos
+
     Text(
-        text = "Hello $name!",
+        text = "Fotos: ${photos.size}",
         modifier = modifier
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ApiMartGaleryTheme {
-        Greeting("Android")
-    }
 }

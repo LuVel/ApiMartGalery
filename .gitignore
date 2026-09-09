@@ -3,6 +3,7 @@
 /local.properties
 
 # IntelliJ / Android Studio
+.idea/
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml

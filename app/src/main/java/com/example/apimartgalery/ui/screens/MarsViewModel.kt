@@ -6,20 +6,18 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apimartgalery.network.MarsApi
+import com.example.apimartgalery.network.MarsPhoto
 import kotlinx.coroutines.launch
 
 class MarsViewModel : ViewModel() {
 
-    var marsUiState: String by mutableStateOf("")
+    var marsPhotos by mutableStateOf<List<MarsPhoto>>(emptyList())
+        private set
 
-    init {
-        getMarsPhotos()
-    }
-
-    private fun getMarsPhotos() {
+    fun getMarsPhotos() {
         viewModelScope.launch {
             val listResult = MarsApi.retrofitService.getPhotos()
-            marsUiState = listResult
+            marsPhotos = listResult
         }
     }
 }
