@@ -2,13 +2,14 @@ package com.example.apimartgalery.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import kotlin.getValue
 
 //1. constant
 private const val BASE_URL = "https://android-kotlin-fun-mars-server.appspot.com/"
 
-
+//2. Data
 data class MarsPhoto(
     val id: String,
     val img_src: String
@@ -16,14 +17,14 @@ data class MarsPhoto(
 
 //2. compiler retrofit
 private val retrofit = Retrofit.Builder()
-    .addConverterFactory(GsonConverterFactory.create())
+    .addConverterFactory(ScalarsConverterFactory.create())
     .baseUrl(BASE_URL)
     .build()
 
 //3. Request
 interface MarsApiService {
     @GET("photos")
-    suspend fun getPhotos(): List<MarsPhoto>
+    suspend fun getPhotos(): String
 }
 
 //4. object retrofit

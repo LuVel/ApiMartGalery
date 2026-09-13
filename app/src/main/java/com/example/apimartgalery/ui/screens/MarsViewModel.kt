@@ -1,5 +1,6 @@
 package com.example.apimartgalery.ui.screens
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,13 +12,12 @@ import kotlinx.coroutines.launch
 
 class MarsViewModel : ViewModel() {
 
-    var marsPhotos by mutableStateOf<List<MarsPhoto>>(emptyList())
-        private set
+    var marsPhotos by mutableStateOf("")
 
     fun getMarsPhotos() {
         viewModelScope.launch {
-            val listResult = MarsApi.retrofitService.getPhotos()
-            marsPhotos = listResult
+            val result = MarsApi.retrofitService.getPhotos()
+            marsPhotos = result
         }
     }
 }

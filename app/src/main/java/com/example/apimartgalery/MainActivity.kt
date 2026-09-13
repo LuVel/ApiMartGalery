@@ -27,9 +27,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    val viewModel: MarsViewModel = viewModel()
                     MarsScreen(
-                        viewModel = viewModel,
+                        viewModel = viewModel(),
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -48,10 +47,8 @@ fun MarsScreen(
         viewModel.getMarsPhotos()
     }
 
-    val photos = viewModel.marsPhotos
-
     Text(
-        text = "Fotos: ${photos.size}",
+        text = viewModel.marsPhotos,
         modifier = modifier
     )
 }
